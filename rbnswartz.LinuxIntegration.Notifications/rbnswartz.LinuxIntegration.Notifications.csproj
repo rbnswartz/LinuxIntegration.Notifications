@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>0.0.1</PackageVersion>
+        <Title>Linux Notifications Integration</Title>
+        <Authors>@rbnswartz</Authors>
+        <Description>Native Linux desktop notifications</Description>
+        <Copyright>2021 Reuben Swartz</Copyright>
+        <PackageProjectUrl>https://github.com/rbnswartz/LinuxIntegration.Notifications</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/rbnswartz/LinuxIntegration.Notifications</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Linux, Notifications</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Tmds.DBus" Version="0.9.1" />
+    </ItemGroup>
+
+</Project>
