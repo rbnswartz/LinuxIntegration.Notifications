@@ -12,10 +12,15 @@
         <RepositoryUrl>https://github.com/rbnswartz/LinuxIntegration.Notifications</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>Linux, Notifications</PackageTags>
+        <PackageLicenseFile>license/LICENSE</PackageLicenseFile>
+        <AssemblyVersion>0.0.1</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Tmds.DBus" Version="0.9.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="../LICENSE" Pack="true" PackagePath="license"/>
     </ItemGroup>
 
 </Project>
