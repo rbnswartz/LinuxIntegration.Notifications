@@ -4,6 +4,8 @@ Native Linux desktop notifications
 ## Building
 Standard dotnet build process, `dotnet build`
 
+## Installation
+You can install this package from nuget https://www.nuget.org/packages/rbnswartz.LinuxIntegration.Notifications/ 
 ## Usage
 ### Basic
 Create an instance of NotificationManager and call ShowNotificationAsync
