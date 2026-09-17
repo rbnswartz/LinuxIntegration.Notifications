@@ -29,7 +29,9 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore
-        run: dotnet restore /home/runner/work/LinuxIntegration.Notifications/LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.sln
+        working-directory: ${{ github.workspace }}
+        run: dotnet restore rbnswartz.LinuxIntegration.sln
 
       - name: Build
-        run: dotnet build /home/runner/work/LinuxIntegration.Notifications/LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.sln --configuration Release --no-restore
+        working-directory: ${{ github.workspace }}
+        run: dotnet build rbnswartz.LinuxIntegration.sln --configuration Release --no-restore

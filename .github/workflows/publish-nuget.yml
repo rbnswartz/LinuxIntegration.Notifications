@@ -5,7 +5,6 @@ on:
     tags:
       - "v*"
       - "*.*.*"
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -35,10 +34,13 @@ jobs:
           echo "PACKAGE_VERSION=$version" >> "$GITHUB_ENV"
 
       - name: Restore
-        run: dotnet restore /home/runner/work/LinuxIntegration.Notifications/LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.sln
+        working-directory: ${{ github.workspace }}
+        run: dotnet restore rbnswartz.LinuxIntegration.sln
 
       - name: Pack
-        run: dotnet pack /home/runner/work/LinuxIntegration.Notifications/LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.Notifications.csproj --configuration Release --no-restore -p:PackageVersion=${{ env.PACKAGE_VERSION }} -p:Version=${{ env.PACKAGE_VERSION }} --output /home/runner/work/LinuxIntegration.Notifications/LinuxIntegration.Notifications/artifacts
+        working-directory: ${{ github.workspace }}
+        run: dotnet pack rbnswartz.LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.Notifications.csproj --configuration Release --no-restore -p:PackageVersion=${{ env.PACKAGE_VERSION }} -p:Version=${{ env.PACKAGE_VERSION }} --output "${{ github.workspace }}/artifacts"
 
       - name: Publish to NuGet
-        run: dotnet nuget push "/home/runner/work/LinuxIntegration.Notifications/LinuxIntegration.Notifications/artifacts/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+        shell: bash
+        run: dotnet nuget push "${{ github.workspace }}/artifacts/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
