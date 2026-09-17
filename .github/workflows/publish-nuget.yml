@@ -3,7 +3,6 @@ name: Publish NuGet Package
 on:
   push:
     tags:
-      - "v*"
       - "*.*.*"
 
 permissions:
