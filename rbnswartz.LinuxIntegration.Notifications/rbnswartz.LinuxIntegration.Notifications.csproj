@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageVersion>0.0.1</PackageVersion>
         <Title>Linux Notifications Integration</Title>
@@ -17,7 +17,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Tmds.DBus" Version="0.9.1" />
+      <PackageReference Include="Tmds.DBus" Version="0.95.1" />
     </ItemGroup>
     <ItemGroup>
         <None Include="../LICENSE" Pack="true" PackagePath="license"/>
