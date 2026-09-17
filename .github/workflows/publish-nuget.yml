@@ -3,8 +3,6 @@ name: Publish NuGet Package
 on:
   push:
     tags:
-      - "[0-9]*[.][0-9]*[.][0-9]*"
-      - "[0-9]*[.][0-9]*[.][0-9]*-*"
       - "v[0-9]*[.][0-9]*[.][0-9]*"
       - "v[0-9]*[.][0-9]*[.][0-9]*-*"
 
@@ -14,6 +12,7 @@ permissions:
 jobs:
   publish:
     name: Pack and publish
+    if: github.repository == 'rbnswartz/LinuxIntegration.Notifications'
     runs-on: ubuntu-latest
 
     steps:
