@@ -37,8 +37,9 @@ jobs:
         run: dotnet restore rbnswartz.LinuxIntegration.sln
 
       - name: Pack
+        shell: bash
         working-directory: ${{ github.workspace }}
-        run: dotnet pack rbnswartz.LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.Notifications.csproj --configuration Release --no-restore -p:PackageVersion=${{ env.PACKAGE_VERSION }} -p:Version=${{ env.PACKAGE_VERSION }} --output "${{ github.workspace }}/artifacts"
+        run: dotnet pack rbnswartz.LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.Notifications.csproj --configuration Release --no-restore -p:PackageVersion="$PACKAGE_VERSION" -p:Version="$PACKAGE_VERSION" --output "${{ github.workspace }}/artifacts"
 
       - name: Publish to NuGet
         shell: bash
