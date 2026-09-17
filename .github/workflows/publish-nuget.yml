@@ -1,0 +1,44 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    tags:
+      - "v*"
+      - "*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Pack and publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Derive package version from tag
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Tag '$GITHUB_REF_NAME' is not a supported package version."
+            exit 1
+          fi
+          echo "PACKAGE_VERSION=$version" >> "$GITHUB_ENV"
+
+      - name: Restore
+        run: dotnet restore /home/runner/work/LinuxIntegration.Notifications/LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.sln
+
+      - name: Pack
+        run: dotnet pack /home/runner/work/LinuxIntegration.Notifications/LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.Notifications/rbnswartz.LinuxIntegration.Notifications.csproj --configuration Release --no-restore -p:PackageVersion=${{ env.PACKAGE_VERSION }} -p:Version=${{ env.PACKAGE_VERSION }} --output /home/runner/work/LinuxIntegration.Notifications/LinuxIntegration.Notifications/artifacts
+
+      - name: Publish to NuGet
+        run: dotnet nuget push "/home/runner/work/LinuxIntegration.Notifications/LinuxIntegration.Notifications/artifacts/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
